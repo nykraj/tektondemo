@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fundtransfer
+  labels:
+    app: fundtransfer
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8080
+      name: fundtransfer
+  selector:
+    app: fundtransfer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fundtransfer
+  labels:
+    app: fundtransfer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fundtransfer
+  template:
+    metadata:
+      labels:
+        app: fundtransfer
+    spec:
+      containers:
+      - name: fundtransfer
+        image: de.icr.io/icici-demo/fundtransfer:latest
+        ports:
+        - containerPort: 8080

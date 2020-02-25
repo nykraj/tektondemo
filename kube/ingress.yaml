@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: funtra-ingress
+  namespace: default
+  annotations:
+    ingress.bluemix.net/client-max-body-size: "200m"
+    ingress.bluemix.net/proxy-read-timeout: "300s"
+    ingress.bluemix.net/proxy-connect-timeout: "300s"
+spec:
+  rules:
+  - host: singlegeokubamssas.ams03.containers.appdomain.cloud
+    http:
+      paths:
+      - path: 
+        backend:
+          serviceName: fundtransfer
+          servicePort: 8080
+  tls:
+  - hosts:
+    - singlegeokubamssas.eu-central.containers.mybluemix.net
+    secretName: singlegeokubamssas-appdomain
+---
